@@ -1,0 +1,21 @@
+name: Build and Publish Flatpaks
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "37 3 * * *"
+
+permissions:
+  contents: write
+  actions: write
+  pages: write
+  id-token: write
+
+jobs:
+  publish:
+    uses: n-a-m-e/flatpak-build-template/.github/workflows/publish.yml@main
+    with:
+      app-id: com.blackmagic.Resolve
+      source-git: https://github.com/pobthebuilder/resolve-flatpak.git
+      rebuild-trigger: |
+        url resolve https://www.blackmagicdesign.com/api/support/latest-stable-version/davinci-resolve/linux
